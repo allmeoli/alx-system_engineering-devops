@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 # This script prints the pid of it's own procces
-pgrep bash
+pgrep -l bash
+
