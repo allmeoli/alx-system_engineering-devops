@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
 # This prints To infinity and beyond indefinitely.
-while :
-do
-	echo "To infinity and beyond"
-	sleep 2
-done
+pgrep -f 4-to_infinity_and_beyond | kill
+
