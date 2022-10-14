@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
-# This script prints the pid of it's own procces
-ps -a
+# this script displays a lift of currently running processess
+
+ps -f -aux

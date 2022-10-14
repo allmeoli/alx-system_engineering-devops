@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
-# This script prints the pid of it's own procces
-ps aux | grep bash
+# this script that displays lines containing the `bash` word
+# shellcheck disable=SC2009
+
+ps -f -aux | grep "bash"
