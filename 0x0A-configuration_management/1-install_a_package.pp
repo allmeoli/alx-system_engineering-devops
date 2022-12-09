@@ -2,10 +2,9 @@
 package { ['python3-pip3']:
   ensure => installed,
 }
-
 package { 'pip3':
-  require  => Package['python3-pip3'],
   ensure   => latest,
+  require  => Package['python3-pip3'],
   provider => 'pip3',
 }
 package { 'Flask':
