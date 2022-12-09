@@ -1,15 +1,8 @@
 # install puppet from pip3
-package { ['python3-pip3']:
-  ensure => installed,
-}
-package { 'pip3':
-  ensure   => latest,
-  require  => Package['python3-pip3'],
-  provider => 'pip3',
-}
-package { 'Flask':
-  ensure   => installed,
+
+package { 'flask':
+  ensure   => '2.1.0',
   require  => Package['pip3'],
-  name     => 'Flask~=2.1.0',
+  name     => 'flask~=2.1.0',
   provider => 'pip3',
 }
