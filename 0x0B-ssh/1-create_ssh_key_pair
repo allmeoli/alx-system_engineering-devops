@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Create public-private key pair save to school
+
+ssh-keygen -f school -b 4096 -N betty
