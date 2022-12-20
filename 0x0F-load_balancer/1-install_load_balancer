@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC2154
+# Script that configures Nginx server with a custom header and HAproxy load balancer
+
+apt-get -y update
+apt-get -y install nginx
+service nginx start
+sudo apt install -y haproxy
+
+cat >> /etc/haproxy/haproxy.cfg << EOF
+frontend Local_Server
+	bind *:80
+	mode http
+	default_backend Web_Servers
+backend Web_Servers
+	balance roundrobin
+	mode http
+	server web-01 3.235.226.255:80 check
+	server web-02 3.227.3.77:80 check
+EOF
+
+service haproxy restart
