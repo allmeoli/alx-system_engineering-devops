@@ -50,3 +50,4 @@ backend www-backend
         # redirect scheme https if !{ ssl_fc }
         server 56896-web-01 34.232.69.130:80 check
         server 56896-web-02 100.26.216.95:80 check
+        #new
