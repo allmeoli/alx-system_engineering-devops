@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#Run ngnix as user nginx and active port 8080 
+
+sudo sed -i "7i User=nginx" /lib/systemd/system/nginx.service
+sudo sed -i "8i Group=nginx" /lib/systemd/system/nginx.service
+sudo chown -R nginx:nginx /etc/nginx/ /var/log/nginx/ /var/cache/nginx/
+sudo chmod 777 -R nginx:nginx /etc/nginx/ /var/log/nginx/ /var/cache/nginx/
+
+sudo sed -i "23i\\\tlisten 8080 default_server;" /etc/nginx/sites-enabled/default
+sudo sed -i "24i\\\tlisten [::]:8080 default_server;" /etc/nginx/sites-enabled/default
+sudo service nginx restart
