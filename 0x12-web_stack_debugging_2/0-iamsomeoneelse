@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#check user of passed 
+
+sudo -H -u $1 bash -c 'whoami'
+
+
