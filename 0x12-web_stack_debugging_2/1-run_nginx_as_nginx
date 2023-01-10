@@ -8,4 +8,5 @@ sudo chmod 777 -R nginx:nginx /etc/nginx/ /var/log/nginx/ /var/cache/nginx/
 
 sudo sed -i "23i\\\tlisten 8080 default_server;" /etc/nginx/sites-enabled/default
 sudo sed -i "24i\\\tlisten [::]:8080 default_server;" /etc/nginx/sites-enabled/default
+pkill apache2
 sudo service nginx restart
