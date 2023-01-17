@@ -8,23 +8,27 @@ import sys
 if __name__ == "__main__":
     url = 'https://jsonplaceholder.typicode.com/'
 
-    user = '{}users/{}'.format(url, sys.argv[1])
+    userid = sys.argv[1]
+    user = '{}users/{}'.format(url, userid)
     res = requests.get(user)
     json_o = res.json()
-    name = json_o.get('name')
+    name = json_o.get('username')
 
-    id = sys.argv[1]
-    todos = '{}todos?userId={}'.format(url, sys.argv[1])
+    todos = '{}todos?userId={}'.format(url, userid)
     res = requests.get(todos)
     tasks = res.json()
     l_task = []
+    for task in tasks:
+        l_task.append([userid,
+                       name,
+                       task.get('completed'),
+                       task.get('title')])
 
-    name_first = name.split(" ")[0]
-    with open('{}.csv'.format(id), 'w', encoding='UTF8') as f:
-        for task in tasks:
-            writer = csv.writer(f, quoting=csv.QUOTE_ALL)
-            lst = [
-                str(id), name_first, str(
-                    task.get('completed')), str(
-                    task.get('title'))]
-            writer.writerow(lst)
+    filename = '{}.csv'.format(userid)
+    with open(filename, mode='w') as employee_file:
+        employee_writer = csv.writer(employee_file,
+                                     delimiter=',',
+                                     quotechar='"',
+                                     quoting=csv.QUOTE_ALL)
+        for task in l_task:
+            employee_writer.writerow(task)
