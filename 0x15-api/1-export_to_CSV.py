@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ Script that uses JSONPlaceholder API to get information about employee """
-import csv
+import json
 import requests
 import sys
 
@@ -20,9 +20,9 @@ if __name__ == "__main__":
     l_task = []
 
     name_first = name.split(" ")[0]
-    with open('{}.csv'.format(id), 'w', encoding='UTF8') as f:
+    with open('{}.json'.format(id), 'w', encoding='UTF8') as f:
         for task in tasks:
-            writer = csv.writer(f, quoting=csv.QUOTE_ALL)
+            writer = json.writer(f, quoting=json.QUOTE_ALL)
             lst = [
                 str(id), name_first, str(
                     task.get('completed')), str(
