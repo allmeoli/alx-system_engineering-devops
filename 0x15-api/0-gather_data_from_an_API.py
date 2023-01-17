@@ -1,31 +1,25 @@
 #!/usr/bin/python3
-"""
-Python script that, using this REST API,
-for a given employee ID, returns information about his/her TODO list progress.
-"""
+""" Script that uses JSONPlaceholder API to get information about employee """
 import requests
-from sys import argv
+import sys
+
 
 if __name__ == "__main__":
+    url = 'https://jsonplaceholder.typicode.com/'
 
-    url_user = "https://jsonplaceholder.typicode.com/users/{}/"\
-        .format(argv[1])
-    url_user_todo = "https://jsonplaceholder.typicode.com/users/{}/todos"\
-        .format(
-            argv[1])
+    user = '{}users/{}'.format(url, sys.argv[1])
+    res = requests.get(user)
+    json_o = res.json()
+    print("Employee {} is done with tasks".format(json_o.get('name')), end="")
 
-    res_user = requests.get(url_user)
-    res_user_todo = requests.get(url_user_todo)
+    todos = '{}todos?userId={}'.format(url, sys.argv[1])
+    res = requests.get(todos)
+    tasks = res.json()
+    l_task = []
+    for task in tasks:
+        if task.get('completed') is True:
+            l_task.append(task)
 
-    name = res_user.json()["name"]
-    total_num_oftask = len(res_user_todo.json())
-    total_num_cmp = 0
-    tasks_completed = []
-    for x in res_user_todo.json():
-        if x['completed']:
-            total_num_cmp += 1
-            tasks_completed.append(x['title'])
-    print('Employee {} is done with tasks({}/{}):'.format(name,
-          total_num_cmp, total_num_oftask))
-    for task in tasks_completed:
-        print("\t {}".format(task))
+    print("({}/{}):".format(len(l_task), len(tasks)))
+    for task in l_task:
+        print("\t {}".format(task.get("title")))
